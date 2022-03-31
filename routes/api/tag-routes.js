@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
       }
     ]
   })
-  .then(dbProductData => res.json(dbProductData))
+  .then((productData) => res.json(productData))
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
@@ -51,7 +51,7 @@ router.get('/:id', (req, res) => {
       }
     ]
   })
-  .then(dbProductData => res.json(dbProductData))
+  .then((productData) => res.json(productData))
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
@@ -94,11 +94,11 @@ router.put('/:id', (req, res) => {
         return ProductTag.findAll({ where: {tag_id: req.params.id}});
       })
       .then ((productTags) => {
-        let productTagIds = productTags.map(({ product_id }) => product_id);
+        const productTagIds = productTags.map(({ product_id }) => product_id);
 
         if (req.body.productId) {
 
-          let newProductTags = req.body.productId
+          const newProductTags = req.body.productId
             .filter((product_id) => !productTagIds.includes(product_id))
             .map((product_id) => {
               return {
@@ -107,7 +107,7 @@ router.put('/:id', (req, res) => {
               };
             });
 
-          let productTagsToRemove = productTags
+          const productTagsToRemove = productTags
             .filter(({ product_id }) => !req.body.productId.includes(product_id))
             .map(({ id }) => id);
 
@@ -132,7 +132,7 @@ router.delete('/:id', (req, res) => {
       id: req.params.id
     }
   })
-  .then(tagData => {
+  .then((tagData) => {
     if (!tagData) {
       res.status(404).json({ message: 'No tag found with this ID.'});
       return;

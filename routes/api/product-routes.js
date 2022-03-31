@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
       }
     ]
   })
-  .then(productData => res.json(productData))
+  .then((productData) => res.json(productData))
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
@@ -71,7 +71,7 @@ router.get('/:id', (req, res) => {
       }
     ]
   })
-  .then(productData => res.json(productData))
+  .then((productData) => res.json(productData))
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
@@ -128,7 +128,7 @@ router.put('/:id', (req, res) => {
       const productTagIds = productTags.map(({ tag_id }) => tag_id);
       // create filtered list of new tag_ids
       const newProductTags = req.body.tagIds
-        .filter((tag_id) => !productTagIds.includes(tag_id))
+        .filter((tag_id) => (!productTagIds).includes(tag_id))
         .map((tag_id) => {
           return {
             product_id: req.params.id,
@@ -160,7 +160,7 @@ router.delete('/:id', (req, res) => {
       id: req.params.id
     }
   })
-  .then(productData => {
+  .then((productData) => {
     if (!productData) {
       res.status(404).json({ message: 'No product found with this ID'});
       return;
